@@ -3,46 +3,299 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Acceso confirmado</title>
+  <title>Acceso confirmado | Ivan M. Innova Group</title>
+
   <style>
-    body{font-family:Arial,sans-serif;margin:0;background:#fff;color:#111}
-    .wrap{max-width:760px;margin:0 auto;padding:22px}
-    .card{border:2px solid #111;border-radius:18px;padding:18px;margin:14px 0}
-    .btn{display:block;text-decoration:none;border:2px solid #111;border-radius:14px;padding:14px 16px;text-align:center;font-weight:700;color:#111}
-    .small{font-size:14px;opacity:.85}
-    .ok{font-weight:800;font-size:22px}
-    code{background:#f2f2f2;padding:2px 6px;border-radius:8px}
-    ul{line-height:1.55}
+    :root{
+      --bg1:#0b1220;
+      --bg2:#0f2447;
+      --card:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.14);
+      --text:#f7fbff;
+      --muted:rgba(247,251,255,.75);
+      --accent:#4da3ff;
+      --accent2:#22c55e;
+      --warning:#fbbf24;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(77,163,255,.35), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(34,197,94,.25), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+
+    .wrap{max-width:980px;margin:0 auto;padding:22px}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px; padding:16px 18px; border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06); border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(34,197,94,.85));
+      display:grid;place-items:center;
+      font-weight:900;
+      color:#07101f;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      flex:0 0 auto;
+    }
+    .brand h1{
+      margin:0; font-size:16px; letter-spacing:.2px;
+      line-height:1.2;
+    }
+    .brand p{margin:2px 0 0 0; font-size:13px; color:var(--muted)}
+
+    .pill{
+      font-size:12px; padding:8px 10px; border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06);
+      color:var(--muted);
+      display:flex; gap:8px; align-items:center; white-space:nowrap;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;background:var(--accent2);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.15);
+      display:inline-block;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:16px;
+      margin-top:16px;
+    }
+
+    .card{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .title{
+      display:flex; align-items:center; gap:10px;
+      margin:0 0 10px 0;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .check{
+      width:28px;height:28px;border-radius:10px;
+      background:rgba(34,197,94,.18);
+      border:1px solid rgba(34,197,94,.35);
+      display:grid;place-items:center;
+      flex:0 0 auto;
+    }
+
+    .btn{
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      text-decoration:none;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid rgba(77,163,255,.55);
+      background: linear-gradient(135deg, rgba(77,163,255,.22), rgba(77,163,255,.12));
+      color:var(--text);
+      font-weight:800;
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); filter:brightness(1.05)}
+    .btn:active{transform: translateY(0px)}
+    .btn-green{
+      border:1px solid rgba(34,197,94,.55);
+      background: linear-gradient(135deg, rgba(34,197,94,.22), rgba(34,197,94,.12));
+    }
+
+    .small{font-size:13px;color:var(--muted);line-height:1.45}
+    code{
+      display:inline-block;
+      padding:4px 8px;
+      border-radius:10px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.92);
+      word-break:break-all;
+    }
+
+    ul{margin:10px 0 0 18px; padding:0; line-height:1.6; color:var(--muted)}
+    .divider{height:1px;background:var(--stroke); margin:14px 0}
+
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .badge{
+      font-size:12px; color:var(--muted);
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      display:flex; gap:8px; align-items:center;
+    }
+
+    .faq details{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:12px 12px;
+      margin-top:10px;
+    }
+    .faq summary{
+      cursor:pointer;
+      font-weight:800;
+      color:rgba(255,255,255,.92);
+      list-style:none;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq p{margin:8px 0 0 0; color:var(--muted); font-size:13px; line-height:1.5}
+
+    .footer{
+      margin:18px 0 0 0;
+      text-align:center;
+      color:rgba(247,251,255,.72);
+      font-size:12px;
+    }
+
+    @media (max-width: 860px){
+      .grid{grid-template-columns: 1fr}
+      .pill{display:none}
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="card">
-      <div class="ok">✅ Acceso</div>
-      <p>Gracias. Aquí tienes tu acceso:</p>
 
-      <!-- CAMBIA ESTE LINK POR TU APK (Drive directo o GitHub Release) -->
-      <a class="btn" href="TU_LINK_DEL_APK" target="_blank">📥 Descargar</a>
-
-      <p class="small">
-        Si el botón no funciona, copia y pega este enlace:<br/>
-        <code>TU_LINK_DEL_APK</code>
-      </p>
+    <!-- HEADER / BRAND -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">IM</div>
+        <div>
+          <h1>Ivan M. Innova Group</h1>
+          <p>Acceso oficial • Entrega digital segura</p>
+        </div>
+      </div>
+      <div class="pill"><span class="dot"></span> Pago verificado / acceso habilitado</div>
     </div>
 
-    <div class="card">
-      <b>📌 Instalación</b>
+    <div class="grid">
+
+      <!-- MAIN: ACCESO -->
+      <div class="card">
+        <h2 class="title">
+          <span class="check">✅</span>
+          Acceso
+        </h2>
+
+        <p class="small">Gracias. Aquí tienes tu acceso:</p>
+
+        <!-- IMPORTANTE: Cambia TU_LINK_DEL_APK por el link directo de GitHub Releases -->
+        <a class="btn" href="TU_LINK_DEL_APK" target="_blank" rel="noopener">
+          ⬇️ Descargar
+        </a>
+
+        <div class="divider"></div>
+
+        <p class="small">
+          Si el botón no funciona, copia y pega este enlace:
+          <br><code>TU_LINK_DEL_APK</code>
+        </p>
+
+        <div class="badges">
+          <div class="badge">🔒 Entrega digital oficial</div>
+          <div class="badge">⚡ Acceso inmediato</div>
+          <div class="badge">🛠 Soporte incluido</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: SOPORTE + CONFIANZA -->
+      <div class="card">
+        <h2 class="title">🛠 Soporte</h2>
+        <p class="small">
+          Si necesitas ayuda con la activación, escríbenos y te guiamos.
+        </p>
+
+        <!-- Cambia TU_NUMERO: ejemplo Perú 51995496654 -->
+        <a class="btn btn-green"
+           href="https://wa.me/51TU_NUMERO?text=Hola%2C%20necesito%20ayuda%20con%20la%20activaci%C3%B3n%20del%20servicio%20por%20voz."
+           target="_blank" rel="noopener">
+          💬 WhatsApp Soporte
+        </a>
+
+        <div class="divider"></div>
+
+        <h2 class="title">🤝 Confianza</h2>
+        <ul>
+          <li>Entrega digital mediante enlace oficial.</li>
+          <li>Soporte básico incluido.</li>
+          <li>Recomendado mantener la app sin “optimización de batería”.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- INSTALACIÓN (mantiene lo tuyo + más claro) -->
+    <div class="card" style="margin-top:16px">
+      <h2 class="title">📌 Instalación</h2>
       <ul>
         <li>Descarga el archivo.</li>
-        <li>Habilita “Instalar apps desconocidas” si te lo solicita.</li>
-        <li>Abre la app y activa permisos requeridos.</li>
+        <li>Habilita <b>“Instalar apps desconocidas”</b> si te lo solicita.</li>
+        <li>Abre la app y activa los permisos requeridos.</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h2 class="title">🔔 Activación recomendada</h2>
+      <ul>
+        <li>Activa <b>Acceso a notificaciones</b> para que funcione correctamente.</li>
+        <li>Permite ejecución en segundo plano (sin restricciones de batería).</li>
+        <li>Reinicia el teléfono si la activación no se refleja de inmediato.</li>
       </ul>
     </div>
 
-    <div class="card">
-      <b>🛠 Soporte</b>
-      <p class="small">Escríbeme si necesitas ayuda.</p>
+    <!-- FAQ (da muchísima confianza) -->
+    <div class="card faq" style="margin-top:16px">
+      <h2 class="title">❓ Preguntas frecuentes</h2>
+
+      <details>
+        <summary>¿Por qué pide “instalar apps desconocidas”?</summary>
+        <p>Es un permiso estándar de Android cuando instalas una app fuera de Play Store. Solo habilítalo para tu navegador y luego puedes desactivarlo.</p>
+      </details>
+
+      <details>
+        <summary>No inicia la descarga, ¿qué hago?</summary>
+        <p>Abre el enlace en el navegador (Chrome), vuelve a presionar “Descargar” y verifica tu conexión. Si persiste, contáctanos por WhatsApp.</p>
+      </details>
+
+      <details>
+        <summary>¿Incluye soporte?</summary>
+        <p>Sí. Incluye soporte básico para guiarte con permisos y activación.</p>
+      </details>
+
+      <details>
+        <summary>¿Esto es seguro?</summary>
+        <p>La entrega se realiza desde un enlace oficial y verificable. Recomendamos descargar únicamente desde esta página.</p>
+      </details>
     </div>
+
+    <div class="footer">
+      © <span id="y"></span> Ivan M. Innova Group • Acceso digital
+    </div>
+
   </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
